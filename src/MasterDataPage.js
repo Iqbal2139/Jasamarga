@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 
@@ -11,6 +12,21 @@ function MasterDataPage() {
     { no: 4, ruas: "Ruas D", gerbang: "Gerbang 4" },
     { no: 5, ruas: "Ruas E", gerbang: "Gerbang 5" },
   ];
+
+  const handleView = (item) => {
+    alert(`Viewing: ${item.ruas} at ${item.gerbang}`);
+  };
+
+  const handleEdit = (item) => {
+    alert(`Editing: ${item.ruas} at ${item.gerbang}`);
+  };
+
+  const handleDelete = (item) => {
+    if (window.confirm(`Are you sure you want to delete ${item.ruas} at ${item.gerbang}?`)) {
+      alert(`Deleted: ${item.ruas} at ${item.gerbang}`);
+      // Add logic to delete the item from the data
+    }
+  };
 
   return (
     <div className="flex h-screen">
@@ -36,8 +52,24 @@ function MasterDataPage() {
                     <td className="py-3 px-6">{item.ruas}</td>
                     <td className="py-3 px-6">{item.gerbang}</td>
                     <td className="py-3 px-6">
-                      <button className="text-blue-500 hover:underline">Edit</button>
-                      <button className="text-red-500 hover:underline ml-4">Delete</button>
+                      <button 
+                        className="text-blue-500 hover:underline"
+                        onClick={() => handleView(item)}
+                      >
+                        <FaEye className="inline mr-1" /> View
+                      </button>
+                      <button 
+                        className="text-blue-500 hover:underline ml-4"
+                        onClick={() => handleEdit(item)}
+                      >
+                        <FaEdit className="inline mr-1" /> Edit
+                      </button>
+                      <button 
+                        className="text-red-500 hover:underline ml-4"
+                        onClick={() => handleDelete(item)}
+                      >
+                        <FaTrash className="inline mr-1" /> Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
