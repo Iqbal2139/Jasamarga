@@ -152,7 +152,7 @@ function LalinReportTable({ data }) {
       </div>
 
       {/* Table with fixed size and scrolling */}
-      <div className="overflow-y-auto max-h-96 border border-gray-300">
+      <div className="overflow-y-auto max-h-96 border border-gray-300 px-2">
         <table id="tableToExport" className="table-auto w-full border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-200">

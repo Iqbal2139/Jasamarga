@@ -26,7 +26,7 @@ const Sidebar = () => {
               </ul>
             </li>
             <li className="mb-4">
-              <a href="#" className="flex items-center text-gray-700 hover:text-black">
+              <a href="/master" className="flex items-center text-gray-700 hover:text-black">
                 <FaCog className="mr-2" /> Master Gerbang
               </a>
             </li>
