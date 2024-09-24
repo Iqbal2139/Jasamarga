@@ -21,7 +21,7 @@ const Sidebar = () => {
               </a>
               <ul className="ml-6 mt-2">
                 <li>
-                  <a href="#" className="text-gray-500 hover:text-gray-700">Laporan Per Hari</a>
+                  <a href="/lalin" className="text-gray-500 hover:text-gray-700">Laporan Per Hari</a>
                 </li>
               </ul>
             </li>
