@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.bg-login{
+  background: url(../public/image-1.jpg);
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
