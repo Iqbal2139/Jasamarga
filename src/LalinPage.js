@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaTachometerAlt, FaFileAlt, FaCog, FaUserCircle, FaFilter } from 'react-icons/fa';
+import Sidebar from './Sidebar';
+import Navbar from './Navbar';
 function LalinReportPage() {
   const [search, setSearch] = useState('');
   const [date, setDate] = useState('');
@@ -38,72 +40,11 @@ function LalinReportPage() {
   return (
     <div className='flex'>
      {/* Sidebar */}
-     <div className="w-64 h-auto bg-yellow-300 p-5">
-        <div className="flex flex-col justify-between h-full">
-          <div>
-            <div className="mb-10">
-              <img src="jasamarga-logo.png" alt="App Logo" className="w-24 mx-auto" />
-            </div>
-            <ul>
-              <li className="mb-4">
-                <a href="/dashboard" className="flex items-center text-gray-700 hover:text-black">
-                  <FaTachometerAlt className="mr-2" /> Dashboard
-                </a>
-              </li>
-              <li className="mb-4">
-                <a href="/lalin" className="flex items-center text-gray-700 hover:text-black">
-                  <FaFileAlt className="mr-2" /> Laporan Lalin
-                </a>
-                <ul className="ml-6 mt-2">
-                  <li>
-                    <a href="#" className="text-gray-500 hover:text-gray-700">Laporan Per Hari</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="mb-4">
-                <a href="#" className="flex items-center text-gray-700 hover:text-black">
-                  <FaCog className="mr-2" /> Master Gerbang
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <button className="text-gray-500 hover:text-gray-700">
-              <FaCog className="mr-2" /> Settings
-            </button>
-          </div>
-        </div>
-      </div>
+     <Sidebar />
       {/* Dashboard Content */}
       <div className="flex flex-col w-full h-auto">
         {/* Navbar */}
-        <div className="flex justify-between items-center p-4 bg-blue-800 shadow-md">
-          <h1 className="text-lg text-white font-semibold">Laporan Lalu Lintas (Lalin)</h1>
-          <div className="flex items-center space-x-4">
-            <FaFilter className="text-white text-xl cursor-pointer" />
-            <div className="relative inline-block">
-              {/* User Icon */}
-              <FaUserCircle 
-                className="text-3xl cursor-pointer text-white" 
-                onClick={toggleDropdown} 
-              />
-
-              {/* Dropdown */}
-              {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg z-10">
-                  <div className="px-4 py-2 text-gray-800">Hello, User Name</div>
-                  <hr />
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+       <Navbar/>
     <div className="p-12 bg-gray-50 flex-grow">
       {/* Header */}
       <h2 className="text-xl font-bold mb-4">Laporan Lalin Per Hari</h2>
