@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-import { FaTachometerAlt, FaFileAlt, FaCog, FaUserCircle, FaFilter } from 'react-icons/fa';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
-import { useNavigate } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 const barData1 = [
@@ -38,17 +35,7 @@ const barData1 = [
   
 
 const Dashboard = () => {
-  // Dropdown untuk menu logut
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const navigate = useNavigate();
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
 
-  const handleLogout = () => {
-    // Add logout functionality here
-    navigate('/');
-  };
   return (
     <div className="flex">
       {/* Sidebar */}
@@ -57,7 +44,6 @@ const Dashboard = () => {
       <div className="flex flex-col w-full h-auto">
         {/* Navbar */}
       <Navbar/>
-
         {/* Main Dashboard Content */}
         <div className="p-10 bg-gray-50 flex-grow">
           <div className="flex justify-between items-center mb-6">
