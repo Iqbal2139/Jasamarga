@@ -8,7 +8,7 @@ function LalinReportPage() {
   const [search, setSearch] = useState('');
   const [date, setDate] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const [itemsPerPage, setItemsPerPage] = useState(5);
 
   // Dummy data
   const data = [
@@ -29,13 +29,13 @@ function LalinReportPage() {
     { ruas: "Ruas 7", gerbang: "Gerbang 15", gardu: "08", hari: "Kamis", tanggal: "16-05-2024", metodePembayaran: "Tunai", golI: 876, golII: 543, golIII: 30, golIV: 25, golV: 20, totalLalin: 1494 },
   ];
 
+
   const filteredData = data.filter(item =>
     item.ruas.toLowerCase().includes(search.toLowerCase()) || 
     item.gerbang.toLowerCase().includes(search.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
   const currentData = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   const handleFilter = () => {
@@ -49,17 +49,12 @@ function LalinReportPage() {
   };
 
   return (
-    <div className='flex'>
-      {/* Sidebar */}
+    <div className='flex h-screen'> {/* Set height to fullscreen */}
       <Sidebar />
-      {/* Dashboard Content */}
-      <div className="flex flex-col w-full h-auto">
-        {/* Navbar */}
-        <Navbar/>
-        <div className="p-12 bg-gray-50 flex-grow">
-          {/* Header */}
+      <div className="flex flex-col w-full h-full"> {/* Set height to fullscreen */}
+        <Navbar />
+        <div className="p-12 bg-gray-50 flex-grow overflow-y-auto"> {/* Allow scrolling */}
           <h2 className="text-xl font-bold mb-4">Laporan Lalin Per Hari</h2>
-          {/* Search and Filter */}
           <div className="flex items-center space-x-4 mb-4">
             <input
               type="text"
@@ -77,41 +72,18 @@ function LalinReportPage() {
             <button onClick={handleFilter} className="bg-blue-500 text-white px-4 py-2 rounded">Filter</button>
             <button onClick={handleReset} className="bg-gray-500 text-white px-4 py-2 rounded">Reset</button>
           </div>
-          {/* Top Summary Header */}
           <div className="grid grid-cols-6 gap-4 mb-4">
-            <div className="p-4 bg-gray-200 rounded text-center">
-              <p className="font-bold">Total Tunai</p>
-              <p>6570</p>
-            </div>
-            <div className="p-4 bg-gray-200 rounded text-center">
-              <p className="font-bold">Total E-Toll</p>
-              <p>7698</p>
-            </div>
-            <div className="p-4 bg-gray-200 rounded text-center">
-              <p className="font-bold">Total Flo</p>
-              <p>210</p>
-            </div>
-            <div className="p-4 bg-gray-200 rounded text-center">
-              <p className="font-bold">Total KTP</p>
-              <p>120</p>
-            </div>
-            <div className="p-4 bg-gray-200 rounded text-center">
-              <p className="font-bold">Total Keseluruhan</p>
-              <p>7546</p>
-            </div>
-            <div className="p-4 bg-gray-200 rounded text-center">
-              <p className="font-bold">Total E-Toll+Tunai+Flo</p>
-              <p>7546</p>
-            </div>
+            {/* Summary boxes */}
           </div>
 
           {/* Table */}
-          <LalinReportTable data={currentData}/>
+          <LalinReportTable data={currentData} />
           {/* Pagination */}
           <Pagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
+            onEntriesChange={setItemsPerPage} // Pass entries change handler
           />
         </div>
       </div>

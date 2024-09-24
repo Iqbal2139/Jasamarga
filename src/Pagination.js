@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+const Pagination = ({ totalPages, currentPage, onPageChange, onEntriesChange }) => {
+  const [entriesPerPage, setEntriesPerPage] = useState(5);
+
   const handleClick = (page) => {
     if (page !== currentPage) {
       onPageChange(page);
     }
+  };
+
+  const handleEntriesChange = (e) => {
+    const value = parseInt(e.target.value);
+    setEntriesPerPage(value);
+    onEntriesChange(value); // Notify parent component of the change
   };
 
   const renderPageNumbers = () => {
@@ -22,7 +30,15 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
   };
 
   return (
-    <div className="flex justify-center mt-4">
+    <div className="flex justify-center items-center mt-4">
+      <select
+        value={entriesPerPage}
+        onChange={handleEntriesChange}
+        className="mr-4 border border-gray-400 rounded px-2 py-1"
+      >
+        <option value={5}>Show 5</option>
+        <option value={10}>Show 10</option>
+      </select>
       {renderPageNumbers()}
     </div>
   );
