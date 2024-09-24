@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
+import { FaEdit, FaTrash, FaEye, FaSearch, FaPlus } from 'react-icons/fa';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
 
@@ -7,6 +7,7 @@ function MasterDataPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Sample data for demonstration
   const [data, setData] = useState([
@@ -29,6 +30,12 @@ function MasterDataPage() {
     setModalOpen(true);     // Open the modal
   };
 
+  const handleAdd = () => {
+    setSelectedItem({ no: data.length + 1, ruas: '', gerbang: '' });
+    setIsEditMode(true);    // Set to add mode
+    setModalOpen(true);     // Open the modal
+  };
+
   const handleCancel = () => {
     setModalOpen(false);    // Close the modal
   };
@@ -38,8 +45,14 @@ function MasterDataPage() {
       const updatedData = data.map((d) =>
         d.no === selectedItem.no ? selectedItem : d
       );
-      setData(updatedData);
-      alert('Data updated successfully!');
+      if (!data.find((d) => d.no === selectedItem.no)) {
+        // Adding new item
+        setData([...data, selectedItem]);
+      } else {
+        // Updating existing item
+        setData(updatedData);
+      }
+      alert(isEditMode ? 'Data updated successfully!' : 'Data added successfully!');
     } else {
       alert('Viewing mode');
     }
@@ -51,6 +64,15 @@ function MasterDataPage() {
     setSelectedItem({ ...selectedItem, [name]: value });
   };
 
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredData = data.filter(item =>
+    item.ruas.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.gerbang.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -58,6 +80,24 @@ function MasterDataPage() {
         <Navbar />
         <div className="p-6 overflow-y-auto">
           <h2 className="text-3xl font-bold mb-4">Master Data</h2>
+          <div className="flex justify-between mb-4">
+            <div className="flex items-center">
+              <input
+                type="text"
+                className="px-4 py-2 border rounded-md mr-2"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={handleSearch}
+              />
+              <FaSearch className="text-gray-500" />
+            </div>
+            <button
+              className="bg-green-500 text-white px-4 py-2 rounded-md flex items-center"
+              onClick={handleAdd}
+            >
+              <FaPlus className="mr-2" /> Tambah Data
+            </button>
+          </div>
           <div className="overflow-hidden rounded-lg shadow-lg">
             <table className="min-w-full bg-white shadow-lg rounded-lg overflow-hidden">
               <thead>
@@ -69,7 +109,7 @@ function MasterDataPage() {
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm font-light">
-                {data.map(item => (
+                {filteredData.map(item => (
                   <tr key={item.no} className="border-b border-gray-200 hover:bg-gray-100">
                     <td className="py-3 px-6">{item.no}</td>
                     <td className="py-3 px-6">{item.ruas}</td>
